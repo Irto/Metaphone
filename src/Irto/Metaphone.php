@@ -1,4 +1,6 @@
 <?php
+namespace Irto;
+
 class Metaphone {
 	public static function brazilian($STRING, $LENGTH=50){
 	    /*
