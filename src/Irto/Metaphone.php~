@@ -11,44 +11,32 @@ class Metaphone {
 	    /*
 	     *    configura o tamanho máximo da chave metafônica
 	     */
-	    $KEY_LENGTH = (int)$LENGTH;
+	    $KEY_LENGTH = (int) $LENGTH;
 
 	    /*
 	     *    coloca a posição no começo
 	     */
-	    $CURRENT_POS = (int)0;
+	    $CURRENT_POS = (int) 0;
 
 	    /*
 	     *    recupera o tamanho máximo da string
 	     */
-	    $STRING_LENGTH = (int)strlen($STRING);
+	    $STRING_LENGTH = (int) strlen($STRING);
 
 	    /*
 	     *    configura o final da string
 	     */
-	    $END_OF_STRING_POS=$STRING_LENGTH-1;
-	    $ORIGINAL_STRING=$STRING."    ";
+	    $END_OF_STRING_POS	= $STRING_LENGTH - 1;
+	    $ORIGINAL_STRING	= $STRING . "    ";
 
-	    /*
-	     *    vamos repor alguns caracteres portugueses facilmente
-	     *     confundidos, substituíndo os números não confundir com
-	     *    os encontros consonantais (RR), dígrafos (LH, NH) e o
-	     *    C-cedilha:
-	     *
-	     *    'LH' to '1'
-	     *    'RR' to '2'
-	     *    'NH' to '3'
-	     *    'Ç'  to 'SS'
-	     *    'CH' to 'X'
-	     */
-	    $ORIGINAL_STRING = ereg_replace('[1|2|3|4|5|6|7|8|9|0]',' ',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('[ã|á|â]','A',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('[é|ê]','E',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('[í|y]','I',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('[õ|ó|ô]','O',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('[ú|ü]','U',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('ç','SS',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('Ç','SS',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/[1|2|3|4|5|6|7|8|9|0]/',' ',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/[ã|á|â]/','A',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/[é|ê]/','E',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/[í|y]/','I',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/[õ|ó|ô]/','O',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/[ú|ü]/','U',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/ç/','SS',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/Ç/','SS',$ORIGINAL_STRING);
 	    /*
 	     *    Converte a string para caixa alta
 	     */
@@ -58,18 +46,17 @@ class Metaphone {
 	     *    faz substituições
 	     *    -> "olho", "ninho", "carro", "exceção", "cabaça"
 	     */
-	    $ORIGINAL_STRING = ereg_replace('LH','1',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('NH','3',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('RR','2',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('XC','SS',$ORIGINAL_STRING);
-	    print $ORIGINAL_STRING;
+	    $ORIGINAL_STRING = preg_replace('/LH/','1',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/NH/','3',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/RR/','2',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/XC/','SS',$ORIGINAL_STRING);
 	    /*
 	     *    a correção do SCH e do TH por conta dos nomes próprios:
 	     *    -> "schiffer", "theodora", "ophelia", etc..
 	     *
-	    $ORIGINAL_STRING = ereg_replace('SCH','X',$ORIGINAL_STRING);*/
-	    $ORIGINAL_STRING = ereg_replace('TH','T',$ORIGINAL_STRING);
-	    $ORIGINAL_STRING = ereg_replace('PH','F',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('SCH','X',$ORIGINAL_STRING);*/
+	    $ORIGINAL_STRING = preg_replace('/TH/','T',$ORIGINAL_STRING);
+	    $ORIGINAL_STRING = preg_replace('/PH/','F',$ORIGINAL_STRING);
 
 	    /*
 	     *    remove espaços extras
@@ -427,7 +414,8 @@ class Metaphone {
 	}
 
 	public static function is_vowel($string, $pos){
-		return ereg("[AEIOU]", substr($string, $pos, 1));
+		return preg_match("/[AEIOU]/", substr($string, $pos, 1));
 	}
 }
 ?>
+

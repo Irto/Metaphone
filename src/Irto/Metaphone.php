@@ -50,7 +50,7 @@ class Metaphone {
 	    $ORIGINAL_STRING = preg_replace('/NH/','3',$ORIGINAL_STRING);
 	    $ORIGINAL_STRING = preg_replace('/RR/','2',$ORIGINAL_STRING);
 	    $ORIGINAL_STRING = preg_replace('/XC/','SS',$ORIGINAL_STRING);
-	    print $ORIGINAL_STRING;
+
 	    /*
 	     *    a correção do SCH e do TH por conta dos nomes próprios:
 	     *    -> "schiffer", "theodora", "ophelia", etc..
